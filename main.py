@@ -30,18 +30,18 @@ def add_cafe():
     if form.validate_on_submit():
         with open("cafe-data.csv", mode="a", encoding='utf-8') as csv_file:
             csv_file.write(f"\n{form.cafe.data},"
-                           f"{form.location.data},"
-                           f"{form.open.data},"
-                           f"{form.close.data},"
+                           f"{form.cafe_location.data},"
+                           f"{form.opening_time.data},"
+                           f"{form.closing_time.data},"
                            f"{form.coffee_rating.data},"
                            f"{form.wifi_rating.data},"
-                           f"{form.power_rating.data}")
+                           f"{form.power_outlet_rating.data}")
         return redirect(url_for('cafes'))
     return render_template('add.html', form=form)
 
 @app.route('/cafes')
 def cafes():
-    with open('coffee-and-wifi/cafe-data.csv', newline='', encoding='utf-8') as csv_file:
+    with open('cafe-data.csv', newline='', encoding='utf-8') as csv_file:
         csv_data = csv.reader(csv_file, delimiter=',')
         list_of_rows = [row for row in csv_data]
     return render_template('cafes.html', cafes=list_of_rows)
